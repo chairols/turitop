@@ -2,15 +2,30 @@
     <div class="box box-primary">
         <div class="box-body">
             <?php $resultado = json_decode($resultado); ?>
-            <?php foreach ($resultado->data->bookings as $res) { ?>
-                <strong>product_name: </strong><?= $res->product_name ?><br>
-                <strong>name: </strong><?=$res->client_data->name?><br>
-                <strong>currency: </strong><?=$res->currency?><br>
-                <strong>total_price: </strong><?=$res->total_price?><br>
-                <strong>date_event: </strong><?=date("d/m/Y H:i:s", $res->date_event)?><br>
-                <br>
-            <?php } ?>
-
+            <table class="table table-responsive table-striped table-condensed table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>short_id</th>
+                        <th>product_name</th>
+                        <th>name</th>
+                        <th>currency</th>
+                        <th>total_price</th>
+                        <th>date_event</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach($resultado->data->bookings as $res) { ?>
+                    <tr>
+                        <td><?=$res->short_id?></td>
+                        <td><?=$res->product_name?></td>
+                        <td><?=$res->client_data->name?></td>
+                        <td><?=$res->currency?></td>
+                        <td><?=$res->total_price?></td>
+                        <td><?=date("d/m/Y H:i:s", $res->date_event)?></td>
+                    </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
         </div>
     </div>
     <pre>
