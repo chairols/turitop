@@ -11,7 +11,8 @@ class Usuarios extends CI_Controller {
             'session'
         ));
         $this->load->model(array(
-            'usuarios_model'
+            'usuarios_model',
+            'preferencias_model'
         ));
         $this->load->helper(array(
             'url'
@@ -28,7 +29,7 @@ class Usuarios extends CI_Controller {
         } else {
             $usuario = $this->usuarios_model->get_usuario($this->input->post('usuario'), sha1($this->input->post('password')));
             if (!empty($usuario)) {
-                
+
                 $datos = array(
                     'SID' => $usuario['idusuario'],
                     'usuario' => $usuario['usuario'],
@@ -41,6 +42,38 @@ class Usuarios extends CI_Controller {
                     'ultimo_acceso' => date("Y-m-d H:i:s")
                 );
                 $this->usuarios_model->update($datos, $usuario['idusuario']);
+
+                $where = array(
+                    'idpreferencia' => 1
+                );
+                $preferencias = $this->preferencias_model->get_where($where);
+
+                $datos_post = http_build_query(
+                        array(
+                            'short_id' => $preferencias['short_id'],
+                            'secret_key' => $preferencias['secret_key']
+                        )
+                );
+
+                $opciones = array('http' =>
+                    array(
+                        'method' => 'POST',
+                        'header' => 'Content-type: application/x-www-form-urlencoded',
+                        'content' => $datos_post
+                    )
+                );
+
+                $contexto = stream_context_create($opciones);
+
+                $resultado = json_decode(file_get_contents('https://api.turitop.com/v1/authorization/grant', false, $contexto));
+
+                $datos = array(
+                    'access_token' => $resultado->data->access_token
+                );
+                $where = array(
+                    'idpreferencia' => 1
+                );
+                $this->preferencias_model->update($datos, $where);
 
                 redirect('/dashboard/', 'refresh');
             }
@@ -59,6 +92,7 @@ class Usuarios extends CI_Controller {
         $this->session->sess_destroy();
         redirect('/usuarios/login/', 'refresh');
     }
+
 }
 
 ?>
