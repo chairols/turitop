@@ -20,12 +20,12 @@
                 <table class="table table-responsive table-striped table-condensed table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>short_id</th>
-                            <th>product_name</th>
-                            <th>name</th>
-                            <th>currency</th>
-                            <th>total_price</th>
-                            <th>date_event</th>
+                            <th>Código de Reserva</th>
+                            <th>Servicio Contratado</th>
+                            <th>Nombre Cliente</th>
+                            <th>Moneda</th>
+                            <th>Monto Total</th>
+                            <th>Fecha</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
