@@ -29,6 +29,7 @@
         </div>
     </div>
     <pre>
-        <?php //print_r($resultado); ?>
+        <?php var_dump(count($resultado->data->bookings)); ?>
+        <?php print_r($resultado); ?>
     </pre>
 </div>
