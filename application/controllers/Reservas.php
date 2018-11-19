@@ -15,6 +15,9 @@ class Reservas extends CI_Controller {
             'preferencias_model',
             'bookings_model'
         ));
+        $this->load->helper(array(
+            'url'
+        ));
 
         $session = $this->session->all_userdata();
         $this->r_session->check($session);
@@ -152,7 +155,7 @@ class Reservas extends CI_Controller {
                         'payment_gateway' => $book->payment_gateway,
                         'gift_certificate' => $book->gift_certificate,
                         'checked' => $book->checked,
-                        'date_enjoyed' => $book->date_enjoyed
+                        'date_enjoyed' => date("Y-m-d H:i:s", $book->date_enjoyed)
                     );
 
                     if (isset($book->date_modified)) {
@@ -257,6 +260,31 @@ class Reservas extends CI_Controller {
         $this->load->view('layout/footer');
     }
 
+    public function modificar($short_id = null) {
+        if($short_id == null) {
+            redirect('/reservas/listar/', 'refresh');
+        }
+        $data['session'] = $this->session->all_userdata();
+        $data['menu'] = 2;
+        
+        $where = array(
+            'short_id' => $short_id
+        );
+        $data['booking'] = $this->bookings_model->get_where($where);
+        $data['client_data'] = $this->bookings_model->get_where_client_data($where);
+        
+        $where = array(
+            'short_id' => $short_id,
+            'count >' => '0'
+        );
+        $data['ticket_type_count'] = $this->bookings_model->gets_where_ticket_type_count($where);
+            
+        $this->load->view('layout/header', $data);
+        $this->load->view('layout/menu');
+        $this->load->view('reservas/modificar');
+        $this->load->view('layout/footer');
+
+    }
 }
 
 ?>

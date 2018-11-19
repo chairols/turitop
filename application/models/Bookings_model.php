@@ -62,6 +62,12 @@ class Bookings_model extends CI_Model {
         
         return $query->row_array();
     }
+    
+    public function gets_where_ticket_type_count($where) {
+        $query = $this->db->get_where('ticket_type_count', $where);
+        
+        return $query->result_array();
+    }
 }
 
 ?>
