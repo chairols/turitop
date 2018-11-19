@@ -25,6 +25,7 @@
                         <th>currency</th>
                         <th>total_price</th>
                         <th>date_event</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,6 +37,13 @@
                             <td><?= $res['currency'] ?></td>
                             <td><?= $res['total_price'] ?></td>
                             <td><?= $res['date_event'] ?></td>
+                            <td>
+                                <a href="/reservar/modificar/<?=$res['short_id']?>/" class="hint--top-left hint--bounce hint--info" aria-label="Modificar">
+                                    <button class="btn btn-primary btn-xs" type="button">
+                                        <i class="fa fa-edit"></i>
+                                    </button>
+                                </a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
