@@ -10,9 +10,12 @@
             </div>
             <div class="row invoice-info">
                 <div class="col-sm-4 invoice-col">
-                    Cliente:
                     <address>
-                        <strong><?=$client_data['name']?></strong>
+                        <strong>Cliente: </strong><?=$client_data['name']?><br>
+                        <strong>Email: </strong><?=$client_data['email']?><br>
+                        <strong>Teléfono: </strong><?=$client_data['phone']?><br>
+                        <strong>Nacionalidad: </strong><?=$client_data['country']?><br>
+                        <strong>Hotel: </strong><?=$client_data['hotel']?>
                     </address>
                 </div>
                 <div class="col-sm-4 invoice-col">
@@ -63,9 +66,33 @@
                 </div>
             </div>
             <hr>
-            <h2 class="text-center">
+            <h3 class="text-center">
+                Forma de Pago
+            </h3>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    Estado del Pago:
+                    <address>
+                        <strong><?=$booking['currency']?> <?=$booking['payment_partial']?></strong>
+                    </address>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    Medio de Pago:
+                    <address>
+                        <strong><?=$booking['payment_gateway']?></strong>
+                    </address>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    Notas:
+                    <address>
+                        <strong><?=$booking['notes']?></strong>
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <h3 class="text-center">
                 Información Adicional
-            </h2>
+            </h3>
             <div class="row invoice-info">
                 <div class="col-sm-4 invoice-col">
                     Texto:
@@ -87,9 +114,9 @@
                 </div>
             </div>
             <hr>
-            <h2 class="text-center">
+            <h3 class="text-center">
                 Agregar Información
-            </h2>
+            </h3>
             <div class="row">
                 <div class="col-sm-4">
                     <input type="text" class="form-control" placeholder="Texto 1">
