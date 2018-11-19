@@ -34,7 +34,7 @@ class Reservas extends CI_Controller {
         );
         $preferencias = $this->preferencias_model->get_where($where);
 
-        if ($pagina == 0) {
+        if ($pagina == 0) { // Solamente traigo datos de la API cuando es la primera página
             /*
              *  Obtengo de la API el access token
              */
