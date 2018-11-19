@@ -1,7 +1,21 @@
 <div class="content-wrapper">
     <div class="box box-primary">
+        <div class="box-header">
+            <!--<form method="GET" action="/retenciones/listar/" class="input-group input-group-sm col-md-5">
+                <input class="form-control pull-left" name="proveedor" id="proveedor" placeholder="Buscar ..." type="text">
+                <div class="input-group-btn">
+                    <button class="btn btn-default" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </form>-->
+            <div class="box-tools">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <?= $links ?>
+                </ul>
+            </div>
+        </div>
         <div class="box-body">
-            <?php $resultado = json_decode($resultado); ?>
             <table class="table table-responsive table-striped table-condensed table-bordered table-hover">
                 <thead>
                     <tr>
@@ -14,22 +28,31 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($resultado->data->bookings as $res) { ?>
-                    <tr>
-                        <td><?=$res->short_id?></td>
-                        <td><?=$res->product_name?></td>
-                        <td><?=$res->client_data->name?></td>
-                        <td><?=$res->currency?></td>
-                        <td><?=$res->total_price?></td>
-                        <td><?=date("d/m/Y H:i:s", $res->date_event)?></td>
-                    </tr>
+                    <?php foreach ($resultado as $res) { ?>
+                        <tr>
+                            <td><?= $res['short_id'] ?></td>
+                            <td><?= $res['product_name'] ?></td>
+                            <td><?= $res['client_data']['name']; ?></td>
+                            <td><?= $res['currency'] ?></td>
+                            <td><?= $res['total_price'] ?></td>
+                            <td><?= $res['date_event'] ?></td>
+                        </tr>
                     <?php } ?>
                 </tbody>
             </table>
         </div>
+        <div class="box-footer clearfix">
+            <div class="pull-left">
+                <strong>Total <?= $total_rows ?> registros.</strong>
+            </div>
+            <div class="box-tools">
+                <ul class="pagination pagination-sm no-margin pull-right">
+                    <?= $links ?>
+                </ul>
+            </div>
+        </div>
     </div>
     <pre>
-        <?php var_dump(count($resultado->data->bookings)); ?>
-        <?php print_r($resultado); ?>
+        <?php //print_r($resultado); ?>
     </pre>
 </div>

@@ -8,7 +8,8 @@ class Reservas extends CI_Controller {
         parent::__construct();
         $this->load->library(array(
             'session',
-            'r_session'
+            'r_session',
+            'pagination'
         ));
         $this->load->model(array(
             'preferencias_model',
@@ -19,15 +20,64 @@ class Reservas extends CI_Controller {
         $this->r_session->check($session);
     }
 
-    public function listar() {
+    public function listar($pagina = 0) {
         $data['session'] = $this->session->all_userdata();
         $data['menu'] = 2;
 
+
+
+        /*
+         *  Obtengo short id y secret key
+         */
         $where = array(
             'idpreferencia' => 1
         );
         $preferencias = $this->preferencias_model->get_where($where);
 
+        /*
+         *  Obtengo de la API el access token
+         */
+        $datos_post = http_build_query(
+                array(
+                    'short_id' => $preferencias['short_id'],
+                    'secret_key' => $preferencias['secret_key']
+                )
+        );
+
+        $opciones = array('http' =>
+            array(
+                'method' => 'POST',
+                'header' => 'Content-type: application/x-www-form-urlencoded',
+                'content' => $datos_post
+            )
+        );
+
+        $contexto = stream_context_create($opciones);
+
+        $resultado = json_decode(file_get_contents('https://api.turitop.com/v1/authorization/grant', false, $contexto));
+
+        /*
+         *  Guardo el access token en base de datos
+         */
+        $datos = array(
+            'access_token' => $resultado->data->access_token
+        );
+        $where = array(
+            'idpreferencia' => 1
+        );
+        $this->preferencias_model->update($datos, $where);
+
+        /*
+         *  Obtengo el access token de la base de datos
+         */
+        $where = array(
+            'idpreferencia' => 1
+        );
+        $preferencias = $this->preferencias_model->get_where($where);
+
+        /*
+         *  Obtengo la ultima fecha de la última reserva
+         */
         $ultima_fecha = $this->bookings_model->get_ultima_fecha();
 
         if ($ultima_fecha['date_booking'] == null) {
@@ -64,7 +114,9 @@ class Reservas extends CI_Controller {
 
         $resultado = json_decode($data['resultado']);
         $resultado = $resultado->data->bookings;
-
+        /*
+         *  Guardo los nuevos bookings
+         */
         foreach ($resultado as $book) {
             $where = array(
                 'short_id' => $book->short_id
@@ -154,6 +206,48 @@ class Reservas extends CI_Controller {
                     $this->bookings_model->set_ticket_type_count($set);
                 }
             }
+        }
+        
+        /*
+         *  Obtengo los bookings de la base de datos
+         */
+        $per_page = 10;
+        $where = $this->input->get();
+        
+        /*
+         * inicio paginador
+         */
+        $total_rows = $this->bookings_model->get_cantidad_where($where);
+        $config['reuse_query_string'] = TRUE;
+        $config['base_url'] = '/reservas/listar/';
+        $config['total_rows'] = $total_rows;
+        $config['per_page'] = $per_page;
+        $config['first_link'] = '<i class="fa fa-angle-double-left"></i>';
+        $config['first_tag_open'] = '<li>';
+        $config['first_tag_close'] = '</li>';
+        $config['last_link'] = '<i class="fa fa-angle-double-right"></i>';
+        $config['last_tag_open'] = '<li>';
+        $config['last_tag_close'] = '</li>';
+        $config['next_tag_open'] = '<li>';
+        $config['next_tag_close'] = '</li>';
+        $config['prev_tag_open'] = '<li>';
+        $config['prev_tag_close'] = '</li>';
+        $config['cur_tag_open'] = '<li class="active"><a href="#"><b>';
+        $config['cur_tag_close'] = '</b></a></li>';
+        $config['num_tag_open'] = '<li>';
+        $config['num_tag_close'] = '</li>';
+        $this->pagination->initialize($config);
+        $data['links'] = $this->pagination->create_links();
+        $data['total_rows'] = $total_rows;
+        /*
+         * fin paginador
+         */
+        $data['resultado'] = $this->bookings_model->gets_where_limit($where, $per_page, $pagina);
+        foreach($data['resultado'] as $key => $value) {
+            $where = array(
+                'short_id' => $value['short_id']
+            );
+            $data['resultado'][$key]['client_data'] = $this->bookings_model->get_where_client_data($where);
         }
 
         $this->load->view('layout/header', $data);
