@@ -58,6 +58,11 @@
                             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                         </a>
                     </li>
+                    <li class="<?=($menu==3)?'active':''?>">
+                        <a href="/proveedores/administrar/">
+                            <i class="fa fa-users"></i> <span>Proveedores</span>
+                        </a>
+                    </li>
                     <li class="<?=($menu==2)?'active ':''?>treeview">
                         <a href="#">
                             <i class="fa fa-lock"></i> <span>Reservas</span>
