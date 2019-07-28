@@ -39,12 +39,12 @@
                                 <td><?= $res['total_price'] ?></td>
                                 <td><?= $res['date_event'] ?></td>
                                 <td>
-                                    <a href="/reservas/modificar/<?= $res['short_id'] ?>/" class="hint--top-left hint--bounce hint--info" aria-label="Modificar">
+                                    <a href="/reservas/modificar/<?= $res['short_id'] ?>/" class="hint--top hint--bounce hint--info" aria-label="Modificar">
                                         <button class="btn btn-primary btn-xs" type="button">
                                             <i class="fa fa-edit"></i>
                                         </button>
                                     </a>
-                                    <a href="/reservas/pdf/<?= $res['short_id'] ?>/" target="_blank" class="hint--top-left hint--bounce hint--error" aria-label="Ver PDF">
+                                    <a href="/reservas/pdf/<?= $res['short_id'] ?>/" target="_blank" class="hint--top hint--bounce hint--error" aria-label="Ver PDF">
                                         <button class="btn btn-danger btn-xs" type="button">
                                             <i class="fa fa-file-pdf-o"></i>
                                         </button>

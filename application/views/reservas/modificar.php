@@ -73,7 +73,7 @@
                 <div class="col-sm-4 invoice-col">
                     Estado del Pago:
                     <address>
-                        <strong><?=$booking['currency']?> <?=$booking['payment_partial']?></strong>
+                        <strong><?=$booking['status']?></strong>
                     </address>
                 </div>
                 <div class="col-sm-4 invoice-col">
@@ -153,6 +153,9 @@
                     </a>
                 </div>
             </div>
+            <pre>
+                <?php print_r($booking); ?>
+            </pre>
         </section>
     </section>
 
