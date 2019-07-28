@@ -48,13 +48,18 @@ class Reservas extends CI_Controller {
                     )
             );
 
-            $opciones = array('http' =>
-                array(
+            $opciones = array(
+                'http' => array(
                     'method' => 'POST',
                     'header' => 'Content-type: application/x-www-form-urlencoded',
                     'content' => $datos_post
+                ),
+                "ssl" => array(
+                    "verify_peer" => false,
+                    "verify_peer_name" => false,
                 )
             );
+
 
             $contexto = stream_context_create($opciones);
 
@@ -103,11 +108,15 @@ class Reservas extends CI_Controller {
                     )
             );
 
-            $opciones = array('http' =>
-                array(
+            $opciones = array(
+                'http' => array(
                     'method' => 'POST',
                     'header' => 'Content-type: application/x-www-form-urlencoded',
                     'content' => $datos_post
+                ),
+                "ssl" => array(
+                    "verify_peer" => false,
+                    "verify_peer_name" => false,
                 )
             );
 
@@ -261,30 +270,30 @@ class Reservas extends CI_Controller {
     }
 
     public function modificar($short_id = null) {
-        if($short_id == null) {
+        if ($short_id == null) {
             redirect('/reservas/listar/', 'refresh');
         }
         $data['session'] = $this->session->all_userdata();
         $data['menu'] = 2;
-        
+
         $where = array(
             'short_id' => $short_id
         );
         $data['booking'] = $this->bookings_model->get_where($where);
         $data['client_data'] = $this->bookings_model->get_where_client_data($where);
-        
+
         $where = array(
             'short_id' => $short_id,
             'count >' => '0'
         );
         $data['ticket_type_count'] = $this->bookings_model->gets_where_ticket_type_count($where);
-            
+
         $this->load->view('layout/header', $data);
         $this->load->view('layout/menu');
         $this->load->view('reservas/modificar');
         $this->load->view('layout/footer');
-
     }
+
 }
 
 ?>

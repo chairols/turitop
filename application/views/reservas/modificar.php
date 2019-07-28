@@ -95,13 +95,13 @@
             </h3>
             <div class="row invoice-info">
                 <div class="col-sm-4 invoice-col">
-                    Texto:
+                    Número de Vuelo de llegada:
                     <address>
                         <strong><?=$client_data['customtext']?></strong>
                     </address>
                 </div>
                 <div class="col-sm-4 invoice-col">
-                    Texto:
+                    Fecha y Número de Vuelo de partida:
                     <address>
                         <strong><?=$client_data['customtext2']?></strong>
                     </address>
@@ -113,9 +113,23 @@
                     </address>
                 </div>
             </div>
+            <div class="row invoice-info">
+                <div class="col-sm-4 invoice-col">
+                    Hora de Pickup:
+                    <address>
+                        <input type="text" class="form-control" placeholder="Hora de Pickup">
+                    </address>
+                </div>
+                <div class="col-sm-4 invoice-col">
+                    Origen de la Reserva:
+                    <address>
+                        <input type="text" class="form-control" placeholder="Hora de Pickup">
+                    </address>
+                </div>
+            </div>
             <hr>
             <h3 class="text-center">
-                Agregar Información
+                Proveedor
             </h3>
             <div class="row">
                 <div class="col-sm-4">
@@ -153,9 +167,6 @@
                     </a>
                 </div>
             </div>
-            <pre>
-                <?php print_r($booking); ?>
-            </pre>
         </section>
     </section>
 
