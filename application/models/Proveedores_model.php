@@ -12,6 +12,15 @@ class Proveedores_model extends CI_Model {
         $this->db->insert('proveedores', $datos);
         return $this->db->insert_id();
     }
+    
+    public function gets() {
+        $this->db->select('*');
+        $this->db->from('proveedores');
+        $this->db->order_by('proveedor');
+        
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 
 ?>

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-
+    gets_proveedores();
 });
 
 $("#agregar").click(function () {
@@ -32,6 +32,9 @@ $("#agregar").click(function () {
                             type: 'success',
                             z_index: 2000
                         });
+                $("#proveedor").val("");
+                $("#email").val("");
+                gets_proveedores();
             }
         },
         error: function (xhr) { // if error occured
@@ -46,3 +49,29 @@ $("#agregar").click(function () {
         }
     });
 });
+
+function gets_proveedores() {
+    $.ajax({
+        type: 'POST',
+        url: '/proveedores/gets_proveedores_tabla/',
+        beforeSend: function () {
+            $("#proveedores").hide();
+            $("#proveedores-loading").show();
+        },
+        success: function (data) {
+            $("#proveedores").html(data);
+            $("#proveedores-loading").hide();
+            $("#proveedores").show();
+        },
+        error: function (xhr) { // if error occured
+            $("#proveedores-loading").hide();
+            $("#proveedores").show();
+
+            $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + xhr.statusText,
+                    {
+                        type: 'danger',
+                        z_index: 2000
+                    });
+        }
+    });
+}

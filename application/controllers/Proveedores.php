@@ -66,6 +66,12 @@ class Proveedores extends CI_Controller {
             }
         }
     }
+    
+    public function gets_proveedores_tabla() {
+        $data['proveedores'] = $this->proveedores_model->gets();
+        
+        $this->load->view('proveedores/gets_proveedores_tabla', $data);
+    }
 
 }
 

@@ -10,7 +10,17 @@
 
     <section class="content">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-default">Agregar Proveedor</button>
-
+        <hr>
+        <div class="box box-primary box-solid">
+            <div class="box-body">
+                <div id="proveedores-loading" style="display: none;">
+                    <h1 class="text-center">
+                        <i class="fa fa-refresh fa-spin"></i>
+                    </h1>
+                </div>
+                <div id="proveedores"></div>
+            </div>
+        </div>
 
     </section>
 </div>
