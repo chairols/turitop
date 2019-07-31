@@ -139,7 +139,43 @@ class Proveedores extends CI_Controller {
             }
         }
     }
-
+    
+    public function modificar_ajax() {
+        $this->form_validation->set_rules('idproveedor', 'ID Proveedor', 'required|integer');
+        $this->form_validation->set_rules('proveedor', 'Proveedor', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        
+        if ($this->form_validation->run() == FALSE) {
+            $json = array(
+                'status' => 'error',
+                'data' => validation_errors()
+            );
+            echo json_encode($json);
+        } else {
+            $datos = array(
+                'proveedor' => $this->input->post('proveedor'),
+                'email' => $this->input->post('email')
+            );
+            $where = array(
+                'idproveedor' => $this->input->post('idproveedor'),
+                'estado' => 'A'
+            );
+            $resultado = $this->proveedores_model->update($datos, $where);
+            if ($resultado) {
+                $json = array(
+                    'status' => 'ok',
+                    'data' => 'El proveedor se modificó con éxito'
+                );
+                echo json_encode($json);
+            } else {
+                $json = array(
+                    'status' => 'error',
+                    'data' => 'No se pudo modificar el proveedor'
+                );
+                echo json_encode($json);
+            }
+        }
+    }
 }
 
 ?>

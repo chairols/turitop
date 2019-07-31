@@ -103,10 +103,10 @@ function borrar(idproveedor, proveedor) {
                 resultado = $.parseJSON(data);
                 if (resultado['status'] == 'error') {
                     $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + resultado['data'],
-                    {
-                        type: 'danger',
-                        z_index: 2000
-                    });
+                            {
+                                type: 'danger',
+                                z_index: 2000
+                            });
                 } else if (resultado['status'] == 'ok') {
                     swal("¡Eliminado!", "El proveedor " + proveedor + " se ha eliminado correctamente.", "success");
                     gets_proveedores();
@@ -114,10 +114,10 @@ function borrar(idproveedor, proveedor) {
             },
             error: function (xhr) { // if error occured
                 $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + xhr.statusText,
-                    {
-                        type: 'danger',
-                        z_index: 2000
-                    });
+                        {
+                            type: 'danger',
+                            z_index: 2000
+                        });
             }
         });
     });
@@ -164,3 +164,49 @@ function get_proveedor(idproveedor) {
         }
     });
 }
+
+$("#modificar").click(function () {
+    datos = {
+        'idproveedor': $("#idproveedor-modificar-modal").val(),
+        'proveedor': $("#proveedor-modificar-modal").val(),
+        'email': $("#email-modificar-modal").val()
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/proveedores/modificar_ajax/',
+        data: datos,
+        beforeSend: function () {
+            $("#modificar").hide();
+            $("#modificar_loading").show();
+        },
+        success: function (data) {
+            $("#modificar_loading").hide();
+            $("#modificar").show();
+
+            resultado = $.parseJSON(data);
+            if (resultado['status'] == 'error') {
+                $.notify('<strong>' + resultado['data'] + '</strong>',
+                        {
+                            type: 'danger',
+                            z_index: 2000
+                        });
+            } else if (resultado['status'] == 'ok') {
+                $.notify('<strong>' + resultado['data'] + '</strong>',
+                        {
+                            type: 'success',
+                            z_index: 2000
+                        });
+                gets_proveedores();
+            }
+        },
+        error: function (xhr) { // if error occured
+            $("#modificar_loading").hide();
+            $("#modificar").show();
+            $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + xhr.statusText,
+                    {
+                        type: 'danger',
+                        z_index: 2000
+                    });
+        }
+    });
+});
