@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="/assets/AdminLTE-2.4.5/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
   <!-- Hint (Tooltips) -->
   <link rel="stylesheet" href="/assets/plugins/hint.css-2.5.1/hint.css">
+  <!-- Sweet Alert -->
+  <link rel="stylesheet" href="/assets/plugins/sweetalert/sweetalert.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->

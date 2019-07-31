@@ -66,11 +66,47 @@ class Proveedores extends CI_Controller {
             }
         }
     }
-    
+
     public function gets_proveedores_tabla() {
-        $data['proveedores'] = $this->proveedores_model->gets();
-        
+        $where = array(
+            'estado' => 'A'
+        );
+        $data['proveedores'] = $this->proveedores_model->gets_where($where);
+
         $this->load->view('proveedores/gets_proveedores_tabla', $data);
+    }
+
+    public function borrar_ajax() {
+        $this->form_validation->set_rules('idproveedor', 'ID Proveedor', 'required|integer');
+
+        if ($this->form_validation->run() == FALSE) {
+            $json = array(
+                'status' => 'error',
+                'data' => validation_errors()
+            );
+            echo json_encode($json);
+        } else {
+            $datos = array(
+                'estado' => 'I'
+            );
+            $where = array(
+                'idproveedor' => $this->input->post('idproveedor')
+            );
+            $resultado = $this->proveedores_model->update($datos, $where);
+            if ($resultado) {
+                $json = array(
+                    'status' => 'ok',
+                    'data' => 'El proveedor se eliminó con éxito'
+                );
+                echo json_encode($json);
+            } else {
+                $json = array(
+                    'status' => 'error',
+                    'data' => 'Ocurrió un error inesperado'
+                );
+                echo json_encode($json);
+            }
+        }
     }
 
 }

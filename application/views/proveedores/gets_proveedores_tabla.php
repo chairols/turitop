@@ -11,7 +11,16 @@
             <tr>
                 <td><?= $proveedor['proveedor'] ?></td>
                 <td><?= $proveedor['email'] ?></td>
-                <td>&nbsp;</td>
+                <td>
+                    <a href="/proveedores/borrar_ajax/<?= $proveedor['idproveedor'] ?>/" class="hint--top hint--bounce hint--info" aria-label="Modificar">
+                        <button class="btn btn-primary btn-xs" type="button">
+                            <i class="fa fa-edit"></i>
+                        </button>
+                    </a>
+                    <button class="btn btn-danger btn-xs hint--top hint--bounce hint--error" aria-label="Eliminar" onclick="borrar(<?=$proveedor['idproveedor']?>, '<?=$proveedor['proveedor']?>');">
+                        <i class="fa fa-trash-o"></i>
+                    </button>
+                </td>
             </tr>
         <?php } ?>
     </tbody>

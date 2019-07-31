@@ -75,3 +75,50 @@ function gets_proveedores() {
         }
     });
 }
+
+function borrar(idproveedor, proveedor) {
+    swal({
+        title: "¿Está seguro?",
+        text: "No podrá recuperar el proveedor " + proveedor + " si lo elimina",
+        type: "warning",
+        showCancelButton: true,
+        cancelButtonText: "Cancelar",
+        confirmButtonColor: "#dc3545",
+        confirmButtonText: "Si, ¡Eliminar!",
+        closeOnConfirm: false,
+        showLoaderOnConfirm: true,
+    }, function () {
+        datos = {
+            'idproveedor': idproveedor
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/proveedores/borrar_ajax/',
+            data: datos,
+            beforeSend: function () {
+
+            },
+            success: function (data) {
+                resultado = $.parseJSON(data);
+                if (resultado['status'] == 'error') {
+                    $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + resultado['data'],
+                    {
+                        type: 'danger',
+                        z_index: 2000
+                    });
+                } else if (resultado['status'] == 'ok') {
+                    swal("¡Eliminado!", "El proveedor " + proveedor + " se ha eliminado correctamente.", "success");
+                    gets_proveedores();
+                }
+            },
+            error: function (xhr) { // if error occured
+                $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + xhr.statusText,
+                    {
+                        type: 'danger',
+                        z_index: 2000
+                    });
+            }
+        });
+    });
+}
