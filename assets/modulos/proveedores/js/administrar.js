@@ -122,3 +122,45 @@ function borrar(idproveedor, proveedor) {
         });
     });
 }
+
+function get_proveedor(idproveedor) {
+    datos = {
+        'idproveedor': idproveedor
+    };
+    $.ajax({
+        type: 'POST',
+        url: '/proveedores/get_where_json/',
+        data: datos,
+        beforeSend: function () {
+            $("#idproveedor-modificar-modal").val("");
+            $("#proveedor-modificar-modal").val("");
+            $("#email-modificar-modal").val("");
+            $("#proveedor-modificar-modal").attr("disabled", "");
+            $("#email-modificar-modal").attr("disabled", "");
+        },
+        success: function (data) {
+            $("#proveedor-modificar-modal").removeAttr("disabled");
+            $("#email-modificar-modal").removeAttr("disabled");
+
+            resultado = $.parseJSON(data);
+            if (resultado['status'] == 'error') {
+                $.notify('<strong>' + resultado['data'] + '</strong>',
+                        {
+                            type: 'danger',
+                            z_index: 2000
+                        });
+            } else if (resultado['status'] == 'ok') {
+                $("#idproveedor-modificar-modal").val(resultado['data']['idproveedor']);
+                $("#proveedor-modificar-modal").val(resultado['data']['proveedor']);
+                $("#email-modificar-modal").val(resultado['data']['email']);
+            }
+        },
+        error: function (xhr) { // if error occured
+            $.notify('<strong>Ha ocurrido el siguiente error:</strong><br>' + xhr.statusText,
+                    {
+                        type: 'danger',
+                        z_index: 2000
+                    });
+        }
+    });
+}

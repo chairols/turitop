@@ -109,6 +109,37 @@ class Proveedores extends CI_Controller {
         }
     }
 
+    public function get_where_json() {
+        $this->form_validation->set_rules('idproveedor', 'ID Proveedor', 'required|integer');
+
+        if ($this->form_validation->run() == FALSE) {
+            $json = array(
+                'status' => 'error',
+                'data' => validation_errors()
+            );
+            echo json_encode($json);
+        } else {
+            $where = array(
+                'idproveedor' => $this->input->post('idproveedor'),
+                'estado' => 'A'
+            );
+            $proveedor = $this->proveedores_model->get_where($where);
+            if ($proveedor) {
+                $json = array(
+                    'status' => 'ok',
+                    'data' => $proveedor
+                );
+                echo json_encode($json);
+            } else {
+                $json = array(
+                    'status' => 'error',
+                    'data' => 'No se encontró el proveedor'
+                );
+                echo json_encode($json);
+            }
+        }
+    }
+
 }
 
 ?>

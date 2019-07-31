@@ -27,6 +27,15 @@ class Proveedores_model extends CI_Model {
         $this->db->update('proveedores', $datos, $where);
         return $this->db->affected_rows();
     }
+    
+    public function get_where($where) {
+        $this->db->select('*');
+        $this->db->from('proveedores');
+        $this->db->where($where);
+        
+        $query = $this->db->get();
+        return $query->row_array();
+    }
 }
 
 ?>

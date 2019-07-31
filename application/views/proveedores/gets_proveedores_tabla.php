@@ -12,12 +12,10 @@
                 <td><?= $proveedor['proveedor'] ?></td>
                 <td><?= $proveedor['email'] ?></td>
                 <td>
-                    <a href="/proveedores/borrar_ajax/<?= $proveedor['idproveedor'] ?>/" class="hint--top hint--bounce hint--info" aria-label="Modificar">
-                        <button class="btn btn-primary btn-xs" type="button">
-                            <i class="fa fa-edit"></i>
-                        </button>
-                    </a>
-                    <button class="btn btn-danger btn-xs hint--top hint--bounce hint--error" aria-label="Eliminar" onclick="borrar(<?=$proveedor['idproveedor']?>, '<?=$proveedor['proveedor']?>');">
+                    <button class="btn btn-primary btn-xs hint--top hint--bounce hint--info" type="button" data-toggle="modal" data-target="#modal-modificar" aria-label="Modificar" onclick="get_proveedor(<?=$proveedor['idproveedor']?>);">
+                        <i class="fa fa-edit"></i>
+                    </button>
+                    <button class="btn btn-danger btn-xs hint--top hint--bounce hint--error" aria-label="Eliminar" onclick="borrar(<?= $proveedor['idproveedor'] ?>, '<?= $proveedor['proveedor'] ?>');">
                         <i class="fa fa-trash-o"></i>
                     </button>
                 </td>
