@@ -63,18 +63,10 @@
                             <i class="fa fa-users"></i> <span>Proveedores</span>
                         </a>
                     </li>
-                    <li class="<?=($menu==2)?'active ':''?>treeview">
-                        <a href="#">
+                    <li class="<?=($menu==2)?'active ':''?>">
+                        <a href="/reservas/listar/">
                             <i class="fa fa-lock"></i> <span>Reservas</span>
-                            <span class="pull-right-container">
-                                <i class="fa fa-angle-left pull-right"></i>
-                            </span>
                         </a>
-                        <ul class="treeview-menu">
-                            <li class="<?=($menu==2)?'active':''?>">
-                                <a href="/reservas/listar/"><i class="fa fa-circle-o"></i> Listar</a>
-                            </li>
-                        </ul>
                     </li>
                     
                     
