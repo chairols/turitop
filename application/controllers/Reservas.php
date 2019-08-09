@@ -13,7 +13,8 @@ class Reservas extends CI_Controller {
         ));
         $this->load->model(array(
             'preferencias_model',
-            'bookings_model'
+            'bookings_model',
+            'proveedores_model'
         ));
         $this->load->helper(array(
             'url'
@@ -275,6 +276,9 @@ class Reservas extends CI_Controller {
         }
         $data['session'] = $this->session->all_userdata();
         $data['menu'] = 2;
+        $data['javascript'] = array(
+            '/assets/modulos/reservas/js/modificar.js'
+        );
 
         $where = array(
             'short_id' => $short_id
@@ -287,6 +291,11 @@ class Reservas extends CI_Controller {
             'count >' => '0'
         );
         $data['ticket_type_count'] = $this->bookings_model->gets_where_ticket_type_count($where);
+        
+        $where = array(
+            'estado' => 'A'
+        );
+        $data['proveedores'] = $this->proveedores_model->gets_where($where);
 
         $this->load->view('layout/header', $data);
         $this->load->view('layout/menu');

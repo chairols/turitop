@@ -133,25 +133,39 @@
             </h3>
             <div class="row">
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 1">
+                    Proveedor:
+                    <select class="form-control chosen">
+                        <?php foreach($proveedores as $proveedor) { ?>
+                        <option value="<?=$proveedor['idproveedor']?>"><?=$proveedor['proveedor']?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 2">
+                    Costo del Proveedor:
+                    <input type="text" class="form-control" placeholder="Costo del Proveedor">
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 3">
+                    Número de Factura:
+                    <input type="text" class="form-control" placeholder="Número de Factura">
                 </div>
             </div>
             <br>
             <div class="row">
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 4">
+                    Proveedor:
+                    <select class="form-control chosen">
+                        <?php foreach($proveedores as $proveedor) { ?>
+                        <option value="<?=$proveedor['idproveedor']?>"><?=$proveedor['proveedor']?></option>
+                        <?php } ?>
+                    </select>
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 5">
+                    Costo del Proveedor:
+                    <input type="text" class="form-control" placeholder="Costo del Proveedor">
                 </div>
                 <div class="col-sm-4">
-                    <input type="text" class="form-control" placeholder="Texto 6">
+                    Número de Factura:
+                    <input type="text" class="form-control" placeholder="Número de Factura">
                 </div>
             </div>
             <br>

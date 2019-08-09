@@ -231,6 +231,8 @@
 <script type="text/javascript" src="/assets/plugins/bootstrap-notify/notify.js"></script>
 <!-- Sweet Alert -->
 <script type="text/javascript" src="/assets/plugins/sweetalert/sweetalert.min.js"></script>
+<!-- Chosen -->
+<script type="text/javascript" src="/assets/plugins/chosen-js/chosen.jquery.js"></script>
 <!-- AdminLTE App -->
 <script src="/assets/AdminLTE-2.4.5/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
