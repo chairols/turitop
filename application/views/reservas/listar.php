@@ -2,22 +2,10 @@
     <section class="content">
         <div class="box box-primary">
             <div class="box-header">
-                <!--<form method="GET" action="/retenciones/listar/" class="input-group input-group-sm col-md-5">
-                    <input class="form-control pull-left" name="proveedor" id="proveedor" placeholder="Buscar ..." type="text">
-                    <div class="input-group-btn">
-                        <button class="btn btn-default" type="submit">
-                            <i class="fa fa-search"></i>
-                        </button>
-                    </div>
-                </form>-->
-                <div class="box-tools">
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <?= $links ?>
-                    </ul>
-                </div>
+                
             </div>
             <div class="box-body">
-                <table class="table table-responsive table-striped table-condensed table-bordered table-hover">
+                <table class="table table-responsive table-striped table-condensed table-bordered table-hover" id="example">
                     <thead>
                         <tr>
                             <th>Código de Reserva</th>
@@ -54,16 +42,6 @@
                         <?php } ?>
                     </tbody>
                 </table>
-            </div>
-            <div class="box-footer clearfix">
-                <div class="pull-left">
-                    <strong>Total <?= $total_rows ?> registros.</strong>
-                </div>
-                <div class="box-tools">
-                    <ul class="pagination pagination-sm no-margin pull-right">
-                        <?= $links ?>
-                    </ul>
-                </div>
             </div>
         </div>
     </section>

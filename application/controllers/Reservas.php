@@ -27,7 +27,19 @@ class Reservas extends CI_Controller {
     public function listar($pagina = 0) {
         $data['session'] = $this->session->all_userdata();
         $data['menu'] = 2;
-
+        $data['css'] = array(
+            '/assets/plugins/DataTables-1.10.18/DataTables-1.10.18/css/jquery.dataTables.min.css',
+            '/assets/plugins/DataTables-1.10.18/Buttons-1.5.4/css/buttons.dataTables.min.css'
+        );
+        $data['javascript'] = array(
+            '/assets/plugins/DataTables-1.10.18/DataTables-1.10.18/js/jquery.dataTables.min.js',
+            '/assets/plugins/DataTables-1.10.18/Buttons-1.5.4/js/dataTables.buttons.min.js',
+            '/assets/plugins/DataTables-1.10.18/JSZip-2.5.0/jszip.min.js',
+            '/assets/plugins/DataTables-1.10.18/pdfmake-0.1.36/pdfmake.min.js',
+            '/assets/plugins/DataTables-1.10.18/pdfmake-0.1.36/vfs_fonts.js',
+            '/assets/plugins/DataTables-1.10.18/Buttons-1.5.4/js/buttons.html5.min.js',
+            '/assets/modulos/reservas/js/listar.js'
+        );
 
 
         /*
@@ -225,38 +237,8 @@ class Reservas extends CI_Controller {
         /*
          *  Obtengo los bookings de la base de datos
          */
-        $per_page = 10;
-        $where = $this->input->get();
 
-        /*
-         * inicio paginador
-         */
-        $total_rows = $this->bookings_model->get_cantidad_where($where);
-        $config['reuse_query_string'] = TRUE;
-        $config['base_url'] = '/reservas/listar/';
-        $config['total_rows'] = $total_rows;
-        $config['per_page'] = $per_page;
-        $config['first_link'] = '<i class="fa fa-angle-double-left"></i>';
-        $config['first_tag_open'] = '<li>';
-        $config['first_tag_close'] = '</li>';
-        $config['last_link'] = '<i class="fa fa-angle-double-right"></i>';
-        $config['last_tag_open'] = '<li>';
-        $config['last_tag_close'] = '</li>';
-        $config['next_tag_open'] = '<li>';
-        $config['next_tag_close'] = '</li>';
-        $config['prev_tag_open'] = '<li>';
-        $config['prev_tag_close'] = '</li>';
-        $config['cur_tag_open'] = '<li class="active"><a href="#"><b>';
-        $config['cur_tag_close'] = '</b></a></li>';
-        $config['num_tag_open'] = '<li>';
-        $config['num_tag_close'] = '</li>';
-        $this->pagination->initialize($config);
-        $data['links'] = $this->pagination->create_links();
-        $data['total_rows'] = $total_rows;
-        /*
-         * fin paginador
-         */
-        $data['resultado'] = $this->bookings_model->gets_where_limit($where, $per_page, $pagina);
+        $data['resultado'] = $this->bookings_model->gets();
         foreach ($data['resultado'] as $key => $value) {
             $where = array(
                 'short_id' => $value['short_id']

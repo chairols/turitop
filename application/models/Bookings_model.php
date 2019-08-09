@@ -68,6 +68,15 @@ class Bookings_model extends CI_Model {
         
         return $query->result_array();
     }
+    
+    public function gets() {
+        $this->db->select('*');
+        $this->db->from('bookings');
+        $this->db->order_by('short_id DESC');
+        
+        $query = $this->db->get();
+        return $query->result_array();
+    }
 }
 
 ?>
