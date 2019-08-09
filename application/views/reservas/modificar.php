@@ -124,7 +124,7 @@
                 <div class="col-sm-4 invoice-col">
                     Origen de la Reserva:
                     <address>
-                        <input type="text" class="form-control" placeholder="Hora de Pickup">
+                        <input type="text" class="form-control" placeholder="Origen de la Reserva">
                     </address>
                 </div>
             </div>
