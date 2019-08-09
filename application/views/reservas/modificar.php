@@ -15,6 +15,7 @@
                         <strong>Email: </strong><?=$client_data['email']?><br>
                         <strong>Teléfono: </strong><?=$client_data['phone']?><br>
                         <strong>Nacionalidad: </strong><?=$client_data['country']?><br>
+                        <strong>Idioma: </strong><?=$client_data['language']?><br>
                         <strong>Hotel: </strong><?=$client_data['hotel']?>
                     </address>
                 </div>
