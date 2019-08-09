@@ -19,13 +19,22 @@ $(document).ready(function () {
         "order": [[ 0, "desc" ]],
         buttons: [
             $.extend(true, {}, buttonCommon, {
-                extend: 'copyHtml5'
+                extend: 'copyHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
             }),
             $.extend(true, {}, buttonCommon, {
-                extend: 'excelHtml5'
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
             }),
             $.extend(true, {}, buttonCommon, {
-                extend: 'pdfHtml5'
+                extend: 'pdfHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                }
             })
         ]
     });
