@@ -12,7 +12,8 @@ class Dashboard extends CI_Controller {
         ));
         $this->load->model(array(
             'preferencias_model',
-            'bookings_model'
+            'bookings_model',
+            'proveedores_model'
         ));
 
         $session = $this->session->all_userdata();
@@ -29,6 +30,11 @@ class Dashboard extends CI_Controller {
         $data['preferencias'] = $this->preferencias_model->get_where($where);
         
         $data['cantidad'] = $this->bookings_model->get_cantidad_where(array());
+        
+        $where = array(
+            'estado' => 'A'
+        );
+        $data['proveedores'] = count($this->proveedores_model->gets_where($where));
 
         $this->load->view('layout/header', $data);
         $this->load->view('layout/menu');
